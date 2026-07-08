@@ -20,7 +20,6 @@ def add_recipe(name, category, ingredients, prep_time, instructions, difficulty,
 
 def search_by_ingredients(ingredient):
     df = read()
-    df["ingredients"] = df["ingredients"].astype(str)
     result = df[df["ingredients"].str.contains(ingredient, case=False)]
     return result  
     
@@ -55,19 +54,15 @@ def category_stats():
 
 def scale_ingredients(name, desired_servings):
     df = read()
-    recipe = df[df["name"] == name]
-    if recipe.empty:
-        return "Recipe not found"
-    ingr = recipe["ingredients"].iloc[0]
-    original_servings = recipe["number_of_servings"].iloc[0]
+    ingr = df.loc[df["name"] == name, "ingredients"].values[0]
+    original_servings = df.loc[df["name"] == name, "number_of_servings"].values[0]
     scale_factor = desired_servings / original_servings
-    items = pd.Series(ingr.split(','))
-    items = items.str.strip()
-    parts = items.str.split(n=1, expand=True)
-    quantities = parts[0].astype(float)
-    rest = parts[1]
+    items = pd.Series(ingr.split(',')).str.strip()
+    numbers = items.str.split().str[0]
+    rest_of_text = items.str.split().str[1:].str.join(' ')
+    quantities = numbers.astype(float)
     scaled_quantities = quantities * scale_factor
-    new_items = scaled_quantities.round(2).astype(str) + " " + rest
+    new_items = scaled_quantities.round(2).astype(str) + " " + rest_of_text
     return ", ".join(new_items)
 
 
@@ -79,9 +74,9 @@ def shopping_list(recipe_names):
     result = pd.Series(all_ingredients).str.strip()
     result = result.str.replace(r"^\d+/?\d*\.?\d*\s*", "", regex=True)
     result = result.str.replace(
-        r"^\b(tablespoons|tablespoon|tbsp|teaspoons|teaspoon|tsp|cups|cup|cloves|clove|slices|slice|pieces|piece|ml|g|kg|l|oz|lb|pinch)\b\s*",
+r"^\b(tablespoons|tablespoon|tbsp|teaspoons|teaspoon|tsp|cups|cup|cloves|clove|slices|slice|pieces|piece|ml|g|kg|l|oz|lb|pinch)\b\s*",
         "", regex=True, case=False)
-    result = result.drop_duplicates()
+    result = result.str.lower().str.strip().drop_duplicates()
     return result
 
 
