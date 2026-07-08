@@ -77,10 +77,10 @@ def shopping_list(recipe_names):
     ingredients = selected["ingredients"].str.split(",")
     all_ingredients = ingredients.sum()
     result = pd.Series(all_ingredients).str.strip()
+    result = result.str.replace(r"^\d+/?\d*\.?\d*\s*", "", regex=True)
     result = result.str.replace(
-    r"^\d+/?\d*\.?\d*\s*"
-    r"\b(tablespoons|tablespoon|tbsp|teaspoons|teaspoon|tsp|cups|cup|cloves|clove|slices|slice|pieces|piece|ml|g|kg|l|oz|lb|pinch)\b\s*",
-    "", regex=True, case=False)
+        r"^\b(tablespoons|tablespoon|tbsp|teaspoons|teaspoon|tsp|cups|cup|cloves|clove|slices|slice|pieces|piece|ml|g|kg|l|oz|lb|pinch)\b\s*",
+        "", regex=True, case=False)
     result = result.drop_duplicates()
     return result
 
