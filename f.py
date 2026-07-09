@@ -40,7 +40,7 @@ if choice == "➕ Add a new recipe":
             name=name.strip().lower() 
             ingredients=ingredients.strip() 
             instructions=instructions.strip() 
-            if name == "" or ingredients == "" or prep_time == 0 or instructions == "" or number_of_servings=="":
+            if name == "" or ingredients == "" or prep_time == 0 or instructions == "" or number_of_servings==0:
                 st.error("⚠️ Please fill in all the required fields before submitting.")
             elif name in df['name'].str.lower().values:  
                 st.error(f"⚠️ '{name}' already exists! Please choose a different name.")
