@@ -18,6 +18,7 @@ def add_recipe(name, category, ingredients, prep_time, instructions, difficulty,
     df = pd.concat([df, pd.DataFrame([new_recipe])], ignore_index=True)
     df.to_csv("recipee.csv", index=False)
 
+
 def search_by_ingredients(ingredient):
     df = read()
     result = df[df["ingredients"].str.contains(ingredient, case=False)]
@@ -80,11 +81,115 @@ r"^\b(tablespoons|tablespoon|tbsp|teaspoons|teaspoon|tsp|cups|cup|cloves|clove|s
     return result
 
 
+import os
+import requests
+from dotenv import load_dotenv
+from openai import OpenAI
+
+
+load_dotenv()
+
+def get_secret(name):
+    value = os.getenv(name)
+
+    if value:
+        return value.strip()
+
+    try:
+        value = st.secrets[name]
+
+        if value:
+            return str(value).strip()
+
+    except Exception:
+        pass
+
+    return None
+
+client = OpenAI(
+    api_key=get_secret("OPENROUTER_API_KEY"),
+    base_url="https://openrouter.ai/api/v1"
+)
+)
 
 
 
+def import_recipe_from_api(dish_name):
+    url = "https://www.themealdb.com/api/json/v1/1/search.php"
+
+    try:
+        response = requests.get(url, params={"s": dish_name}, timeout=10)
+        response.raise_for_status()
+    except requests.exceptions.RequestException:
+        return None
+
+    data = response.json()
+    meals = data.get("meals")
+
+    if not meals:
+        return None
+
+    meal = meals[0]
+    ingredients = []
+
+    for i in range(1, 21):
+        ingredient = meal.get(f"strIngredient{i}")
+        measure = meal.get(f"strMeasure{i}")
+
+        if ingredient and ingredient.strip():
+            text = f"{measure.strip()} {ingredient.strip()}" if measure else ingredient.strip()
+            ingredients.append(text)
+
+    return {
+        "name": meal.get("strMeal", ""),
+        "category": meal.get("strCategory", "Dinner"),
+        "ingredients": ", ".join(ingredients),
+        "instructions": meal.get("strInstructions", ""),
+        "image": meal.get("strMealThumb")
+    }
 
 
+def smart_chef_suggestion(available_ingredients, dietary_restriction=""):
 
+    if dietary_restriction.strip():
+        prompt = f"""
+        Here are the available ingredients:
 
- 
+        {available_ingredients}
+
+        Make the recipe suitable for: {dietary_restriction}
+
+        Give substitutions in the following format:
+
+        Original -> Replment (Reason)
+        """
+    else:
+        prompt = f"""
+        Create one realistic recipe using mainly these ingredients:
+
+        {available_ingredients}
+
+        Format:
+
+        Titleace
+
+        Ingredients
+
+        Numbered Steps
+        """
+
+    try:
+        response = client.chat.completions.create(
+        model="openai/gpt-4.1-mini",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        max_tokens=500 )
+
+        return response.choices[0].message.content
+
+    except Exception:
+        return "⚠️ Unable to generate recipe suggestion."

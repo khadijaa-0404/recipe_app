@@ -1,20 +1,33 @@
 name,category,ingredients,prep_time,instructions,difficulty,rating,number_of_servings
 scrambled eggs,Breakfast,"2 eggs, 1 tbsp butter, 2 tbsp milk, 1 pinch salt",5,"Whisk eggs, milk, and salt in a bowl.
 Melt butter in a pan over medium heat.
-Pour in eggs and stir gently until cooked.",Easy,3,1
+Pour in eggs and stir gently until cooked.",Easy,1.0,1
 classic pancakes,Breakfast,"1 cup flour, 1 tbsp sugar, 1 cup milk, 1 eggs, 2 tbsp butter",15,"Mix dry ingredients in a large bowl.
 Whisk milk, egg, and melted butter together.
 Combine wet and dry ingredients.
-Cook scoops of batter on a hot griddle until golden.",Easy,4,2
+Cook scoops of batter on a hot griddle until golden.",Easy,4.0,2
 pasta,Dinner,"200 g pasta, 1 cup tomato sauce, 2 cloves garlic, 1 tbsp olive oil",20,"Boil pasta in salted water until ready.
 Sauté minced garlic in olive oil.
 Add tomato sauce and simmer for 5 minutes.
-Toss the pasta into the sauce and mix well.",Medium,5,3
+Toss the pasta into the sauce and mix well.",Medium,5.0,3
 mug chocolate cake,Dessert,"4 tbsp flour, 2 tbsp sugar, 1 tbsp cocoa powder, 3 tbsp milk, 1 tbsp oil",5,"Whisk dry ingredients directly inside a microwave-safe mug.
 Add milk and oil, then stir until smooth.
-Microwave on high for 70 to 90 seconds.",Easy,2,1
+Microwave on high for 70 to 90 seconds.",Easy,2.0,1
 lemon cake,Dessert,"2 cups flour, 1.5 cups sugar, 3 eggs, 0.5 cup butter, 0.75 cup milk, 2 tbsp lemon juice, 1 tbsp lemon zest",45,"Preheat oven to 180 degrees.
 Cream butter and sugar together until fluffy.
 Add eggs one by one then stir in lemon juice and zest.
 Alternate adding flour and milk until smooth.
-Bake in a greased pan for 35 minutes.",Medium,,5
+Bake in a greased pan for 35 minutes.",Medium,5.0,5
+cheese sandwich,Breakfast,"2 slices of Bread, 1 slice of Cheese, 1 tablespoon of Butter",2,"Put the cheese between the bread. 
+Spread butter on the bread. 
+Toast it for 2 minutes.",Easy,3.0,1
+cookies,Dessert,"200 g Flour, 100 g Butter, 50 g Brown Sugar, 50 g Chocolate",15,"Mix butter and brown sugar.
+ Add flour and chocolate chips.
+ Bake for 10 minutes",Easy,4.0,4
+jhghj,Breakfast,jhgjg,3,ghsfjh,Easy,,3
+jhljhs,Dinner,klkjkl,3,effkjlk,Easy,,3
+hgdsjg,Breakfast,lklsk,3,jhkj,Easy,,2
+hgdsjgjbjkh,Breakfast,lklsk,3,jhkj,Easy,,2
+f,Breakfast,ghh,1,vvhg,Easy,,1
+fruit salad,Dessert,"1 apple , 2 banana , 3 mango",5,"cut the  fruit 
+mix them",Easy,2.0,2
