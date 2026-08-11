@@ -36,9 +36,7 @@ Powered by **OpenRouter (GPT-4.1 Mini)**, the Smart Chef can:
 - TheMealDB API
 
 ## 🚀 Live Application
-
-https://khadija-recipe-app-lfg2fmpkdckcnsjrfzxkfe.streamlit.app/
-
+https://recipeapp-elwmbnmn3zdyfyfjdsp6k5.streamlit.app/
 ## 🎥 Demo Video
 
 https://youtu.be/EJ4t1Q7WM5E
